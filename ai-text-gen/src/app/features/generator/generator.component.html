@@ -1,0 +1,88 @@
+<div class="generator-page">
+  <div class="glow glow-one"></div>
+  <div class="glow glow-two"></div>
+
+  <section class="generator-card">
+    <header class="header">
+      <p class="eyebrow">SMART WRITING STUDIO</p>
+      <h1>AI Text Generator</h1>
+      <p class="subtitle">
+        Turn a single prompt into a polished blog, caption, product description, or general copy.
+      </p>
+    </header>
+
+    <div class="input-panel">
+      <label class="field" for="prompt">
+        <span>Prompt</span>
+        <textarea
+          id="prompt"
+          [(ngModel)]="prompt"
+          placeholder="Describe what you want to generate..."
+          rows="5">
+        </textarea>
+        <small class="helper">{{ promptLength }} characters</small>
+      </label>
+
+      <label class="field field-compact" for="type">
+        <span>Content Type</span>
+        <select id="type" [(ngModel)]="type">
+          <option value="blog">Blog Generator</option>
+          <option value="caption">Caption Generator</option>
+          <option value="product">Product Description</option>
+          <option value="general">General AI Text</option>
+        </select>
+      </label>
+    </div>
+
+    <button class="generate-btn" (click)="generate()" [disabled]="loading || !promptLength">
+      @if (loading) {
+        <span class="spinner"></span>
+      }
+      {{ loading ? 'Generating...' : 'Generate Text' }}
+    </button>
+
+    @if (loading) {
+      <section class="loading-card">
+        <p>AI is generating your content...</p>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line"></div>
+      </section>
+    }
+
+    @if (errorMessage) {
+      <p class="error-text">{{ errorMessage }}</p>
+    }
+
+    @if (!loading && !result && !errorMessage) {
+      <p class="empty-state">
+        Your generated content will appear here.
+      </p>
+    }
+
+    @if (result; as data) {
+      <section class="output-card">
+        <div class="output-header">
+          <h2>{{ data.title || 'Generated Output' }}</h2>
+          @if (data.wordCount) {
+            <span class="badge">{{ data.wordCount }} words</span>
+          }
+        </div>
+
+        @if (data.image) {
+          <img
+            [src]="data.image"
+            alt="AI generated visual"
+            class="ai-image"
+          />
+        }
+
+        <p class="type-label">{{ type | titlecase }}</p>
+
+        <div class="content">
+          {{ data.content }}
+        </div>
+      </section>
+    }
+  </section>
+</div>
