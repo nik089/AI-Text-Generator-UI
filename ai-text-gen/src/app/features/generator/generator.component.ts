@@ -6,6 +6,7 @@ import { finalize, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-generator',
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './generator.component.html',
   styleUrl: './generator.component.scss',
@@ -22,7 +23,7 @@ export class GeneratorComponent implements OnDestroy {
     private aiService: AiService,
     private cdr: ChangeDetectorRef,
     @Inject(DOCUMENT) private document: Document,
-  ) {}
+  ) { }
 
   get promptLength(): number {
     return this.prompt?.length || 0;

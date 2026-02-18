@@ -1,88 +1,116 @@
 <div class="generator-page">
-  <div class="glow glow-one"></div>
-  <div class="glow glow-two"></div>
+  <div class="background-decor">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="floating-shape shape-1"></div>
+  </div>
 
-  <section class="generator-card">
-    <header class="header">
-      <p class="eyebrow">SMART WRITING STUDIO</p>
-      <h1>AI Text Generator</h1>
+  <section class="generator-card animate-in">
+    <header class="header animate-delay-1">
+      <div class="badge-container">
+        <span class="eyebrow">SMART WRITING STUDIO</span>
+      </div>
+      <h1>AI Text <span class="gradient-text">Generator</span></h1>
       <p class="subtitle">
-        Turn a single prompt into a polished blog, caption, product description, or general copy.
+        Transform your ideas into polished content instantly. blogs, captions, and more with professional precision.
       </p>
     </header>
 
-    <div class="input-panel">
-      <label class="field" for="prompt">
-        <span>Prompt</span>
-        <textarea
-          id="prompt"
-          [(ngModel)]="prompt"
-          placeholder="Describe what you want to generate..."
-          rows="5">
-        </textarea>
-        <small class="helper">{{ promptLength }} characters</small>
-      </label>
+    <div class="input-panel animate-delay-2">
+      <div class="field-wrapper">
+        <label class="field" for="prompt">
+          <span class="field-label">Your Prompt</span>
+          <div class="textarea-container">
+            <textarea id="prompt" [(ngModel)]="prompt" placeholder="What should I write for you?..." rows="5">
+            </textarea>
+            <div class="focus-border"></div>
+          </div>
+          <small class="helper text-glow">{{ promptLength }} characters</small>
+        </label>
+      </div>
 
-      <label class="field field-compact" for="type">
-        <span>Content Type</span>
-        <select id="type" [(ngModel)]="type" (ngModelChange)="onTypeChange()">
-          <option value="blog">Blog Generator</option>
-          <option value="caption">Caption Generator</option>
-          <option value="product">Product Description</option>
-          <option value="general">General AI Text</option>
-        </select>
-      </label>
+      <div class="field-wrapper">
+        <label class="field" for="type">
+          <span class="field-label">Content Type</span>
+          <div class="select-container">
+            <select id="type" [(ngModel)]="type" (ngModelChange)="onTypeChange()">
+              <option value="blog">Blog Post</option>
+              <option value="caption">Social Media Caption</option>
+              <option value="product">Product Description</option>
+              <option value="general">General Copy</option>
+            </select>
+            <div class="select-arrow"></div>
+          </div>
+        </label>
+      </div>
     </div>
 
-    <button class="generate-btn" (click)="generate()" [disabled]="loading || !promptLength">
-      @if (loading) {
-        <span class="spinner"></span>
-      }
-      {{ loading ? 'Generating...' : 'Generate Text' }}
-    </button>
+    <div class="action-panel animate-delay-3">
+      <button class="generate-btn" (click)="generate()" [disabled]="loading || !promptLength">
+        <div class="btn-content">
+          @if (loading) {
+          <span class="spinner"></span>
+          }
+          <span class="btn-text">{{ loading ? 'Shaping Content...' : 'Generate Magic' }}</span>
+        </div>
+        <div class="btn-glow"></div>
+      </button>
+    </div>
 
     @if (loading) {
-      <section class="loading-card">
-        <p>AI is generating your content...</p>
-        <div class="skeleton-line"></div>
-        <div class="skeleton-line short"></div>
-        <div class="skeleton-line"></div>
-      </section>
+    <section class="loading-state">
+      <div class="pulse-loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <p class="loading-text">Weaving your words into perfection...</p>
+    </section>
     }
 
     @if (errorMessage) {
+    <div class="error-container animate-fade-in">
       <p class="error-text">{{ errorMessage }}</p>
+    </div>
     }
 
     @if (!loading && !result && !errorMessage) {
-      <p class="empty-state">
-        Your generated content will appear here.
-      </p>
+    <div class="empty-state-card animate-delay-4">
+      <div class="icon">✨</div>
+      <p>Your AI-crafted content will manifest here.</p>
+    </div>
     }
 
     @if (result; as data) {
-      <section class="output-card">
-        <div class="output-header">
-          <h2>{{ data.title || 'Generated Output' }}</h2>
+    <section class="output-card result-reveal">
+      <div class="output-header">
+        <div class="header-main">
+          <h2>{{ data.title || 'Drafted Output' }}</h2>
           @if (data.wordCount) {
-            <span class="badge">{{ data.wordCount }} words</span>
+          <span class="badge">{{ data.wordCount }} words</span>
           }
         </div>
+        <div class="type-indicator">{{ type | titlecase }}</div>
+      </div>
 
-        @if (data.image) {
-          <img
-            [src]="data.image"
-            alt="AI generated visual"
-            class="ai-image"
-          />
-        }
+      @if (data.image) {
+      <div class="image-wrapper">
+        <img [src]="data.image" alt="AI context visual" class="ai-image" />
+        <div class="image-overlay"></div>
+      </div>
+      }
 
-        <p class="type-label">{{ type | titlecase }}</p>
-
+      <div class="content-box">
         <div class="content">
           {{ data.content }}
         </div>
-      </section>
+      </div>
+
+      <div class="card-footer">
+        <button class="action-link">Copy Content</button>
+        <button class="action-link">Save Draft</button>
+      </div>
+    </section>
     }
   </section>
 </div>

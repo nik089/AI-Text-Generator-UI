@@ -1,0 +1,94 @@
+<div class="gemini-page">
+    <div class="background-decor">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+    </div>
+
+    <section class="generator-card animate-in">
+        <header class="header animate-delay-1">
+            <div class="badge-container">
+                <span class="eyebrow">POWERED BY GOOGLE AI</span>
+            </div>
+            <h1>Gemini <span class="gradient-text">Studio</span></h1>
+            <p class="subtitle">
+                Harness the world's most capable AI for complex reasoning.
+            </p>
+        </header>
+
+        <div class="input-panel animate-delay-2">
+            <div class="field-wrapper">
+                <label class="field" for="prompt">
+                    <span class="field-label">What's on your mind?</span>
+                    <div class="textarea-container">
+                        <textarea id="prompt" [(ngModel)]="prompt" placeholder="Ask Gemini anything..." rows="5">
+                        </textarea>
+                        <div class="focus-border"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="action-panel animate-delay-3">
+            <button class="generate-btn gemini-btn" (click)="generate()" [disabled]="loading || !prompt.trim()">
+                <div class="btn-content">
+                    @if (loading) {
+                    <span class="spinner"></span>
+                    }
+                    <span class="btn-text">{{ loading ? 'Consulting Gemini...' : 'Search Gemini' }}</span>
+                </div>
+                <div class="btn-glow"></div>
+            </button>
+
+            @if (errorMessage) {
+            <div class="inline-error animate-fade-in">
+                <span class="error-msg">{{ errorMessage }}</span>
+            </div>
+            }
+        </div>
+
+        @if (loading) {
+        <section class="loading-state">
+            <div class="ai-brain-animation">
+                <div class="core"></div>
+                <div class="rings">
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                </div>
+            </div>
+            <p class="loading-text">Gemini is synthesizing thoughts...</p>
+        </section>
+        }
+
+        @if (result; as data) {
+        <section class="output-card result-reveal">
+            <div class="output-header">
+                <div class="header-main">
+                    <h2>{{ data.title }}</h2>
+                    <span class="timestamp">AI Generated</span>
+                </div>
+            </div>
+
+            @if (data.image) {
+            <div class="image-wrapper">
+                <img [src]="data.image" alt="Gemini visual" class="ai-image" />
+                <div class="image-overlay"></div>
+            </div>
+            }
+
+            <div class="content-box">
+                <div class="content">
+                    {{ data.content }}
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button class="secondary-btn">Download</button>
+                <button class="secondary-btn">Copy</button>
+            </div>
+        </section>
+        }
+    </section>
+</div>

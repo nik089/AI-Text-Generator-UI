@@ -1,0 +1,115 @@
+.main-header {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  min-width: 600px;
+  max-width: 90%;
+  z-index: 1000;
+  background: rgba(15, 17, 26, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 0.6rem 0.6rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  animation: navEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes navEntrance {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 3rem;
+}
+
+.logo {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+
+  span {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.nav-links {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.4rem;
+  border-radius: 100px;
+  gap: 0.25rem;
+
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.6rem 1.75rem;
+    border-radius: 100px;
+    white-space: nowrap;
+
+    &:hover:not(.active) {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &.active {
+      color: #fff;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-header {
+    top: 1rem;
+    min-width: calc(100% - 2rem);
+    padding: 0.4rem;
+  }
+
+  .header-container {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+}
