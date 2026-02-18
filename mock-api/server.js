@@ -4,12 +4,8 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
+const DUMMY_IMAGE = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80";
 
-// Dummy image (you can change anytime)
-const DUMMY_IMAGE =
-  "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80";
-
-// Function to generate long dummy blog/product content (~500 words)
 function generateLongContent(topic, mode) {
   return `
 Introduction:
@@ -38,7 +34,7 @@ app.post("/api/generate", (req, res) => {
   if (!prompt) {
     return res.status(400).json({
       success: false,
-      message: "Prompt is required"
+      message: "Prompt is required",
     });
   }
 
@@ -48,12 +44,12 @@ app.post("/api/generate", (req, res) => {
 
   switch (type) {
     case "blog":
-      title = `📝 Complete Guide to ${prompt}`;
+      title = ` Complete Guide to ${prompt}`;
       content = generateLongContent(prompt, "blog");
       break;
 
     case "caption":
-      title = `✨ AI Caption for ${prompt}`;
+      title = ` AI Caption for ${prompt}`;
       content = `
 ${prompt} is transforming the future of innovation and digital creativity.
 Leverage modern technology, smart solutions, and AI-driven strategies to elevate your brand, improve engagement, and deliver high-quality experiences across digital platforms.
@@ -63,7 +59,7 @@ Leverage modern technology, smart solutions, and AI-driven strategies to elevate
       break;
 
     case "product":
-      title = `🚀 ${prompt} - Product Description`;
+      title = `${prompt} - Product Description`;
       content = `
 Product Overview:
 ${prompt} is a high-quality, performance-driven solution designed to improve efficiency, scalability, and user experience in modern applications.
@@ -84,7 +80,7 @@ ${prompt} stands out due to its robust technology, smart design, and adaptabilit
       break;
 
     default:
-      title = `🤖 AI Generated Content for ${prompt}`;
+      title = ` AI Generated Content for ${prompt}`;
       content = `
 This is a mock AI-generated response for "${prompt}".
 It simulates real OpenAI-style content generation for frontend testing, UI development, and API integration without using a paid AI service.
@@ -106,17 +102,17 @@ You can use this fake API to build:
         image,
         type,
         wordCount: content.split(" ").length,
-        content
-      }
+        content,
+      },
     });
   }, 1200);
 });
 
 // Health check route (useful for testing)
 app.get("/", (req, res) => {
-  res.send("🚀 Fake AI API is running on http://localhost:5000/api/generate");
+  res.send(" Fake AI API is running on http://localhost:5000/api/generate");
 });
 
 app.listen(5000, () => {
-  console.log("🚀 Fake AI API running at: http://localhost:5000");
+  console.log(" Fake AI API running at: http://localhost:5000");
 });
