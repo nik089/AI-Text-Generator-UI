@@ -25,7 +25,7 @@
 
       <label class="field field-compact" for="type">
         <span>Content Type</span>
-        <select id="type" [(ngModel)]="type">
+        <select id="type" [(ngModel)]="type" (ngModelChange)="onTypeChange()">
           <option value="blog">Blog Generator</option>
           <option value="caption">Caption Generator</option>
           <option value="product">Product Description</option>
